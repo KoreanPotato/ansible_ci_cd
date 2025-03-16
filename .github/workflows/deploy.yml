@@ -21,4 +21,5 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
         run: |
+          set -e
           ansible-playbook -i inventory ansible-playbook.yml --private-key ~/.ssh/id_rsa
