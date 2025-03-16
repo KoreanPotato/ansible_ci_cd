@@ -17,10 +17,11 @@ jobs:
           sudo apt update
           sudo apt install -y ansible
 
-      - name: Run Ansible Playbook 
+      - name: Run Ansible Playbook
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
         run: |
           set -e
-          ansible-playbook -i inventory ansible-playbook.yml --private-key ~/.ssh/id_rsa
-   
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+          ansible-playbook -i ./inventory.ini ansible-playbook.yml --private-key private_key.pem
