@@ -21,7 +21,6 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
         run: |
-          set -e
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
           chmod 600 private_key.pem
           ansible-playbook -i ./inventory.ini ansible-playbook.yml --private-key private_key.pem
