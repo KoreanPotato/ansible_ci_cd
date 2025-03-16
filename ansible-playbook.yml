@@ -1,0 +1,26 @@
+- name: Docker_deploy
+  hosts: web_servers
+  become: yes
+
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Build Docker image 
+      command: docker build -t docker_image .
+      args:
+        chdir: assignment_3/ 
+
+    - name: Check if container is running  
+      shell: docker ps --format "{{.Names}}" | grep -w myapp
+      register: container_running
+      ignore_errors: yes
+
+    - name: Stop and remove existing container  
+      shell: docker stop myapp && docker rm myapp
+      when: container_running.rc == 0
+
+    - name: Run Docker container  
+      command: docker run -d -p 8080:8080 --name myapp docker_image
