@@ -27,6 +27,10 @@ jobs:
       - name: Test SSH Connection
         run: ssh -i ./id_rsa_ansible_new -o StrictHostKeyChecking=no sergey@100.114.136.8 "echo 'SSH Connection Successful'"
 
+      - name: Copy project files to the server
+        run: |
+          scp -i ~/.ssh/id_rsa_ansible_new -r ./assignment_3 sergey@100.114.136.8:/home/sergey/
+
       - name: Set up Ansible
         run: |
           sudo apt update
