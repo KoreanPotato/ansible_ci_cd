@@ -20,12 +20,12 @@ jobs:
       - name: Set up SSH
         run: |
           #mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_ansible_new
-          chmod 600 ~/.ssh/id_rsa_ansible_new
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ./id_rsa_ansible_new
+          chmod 600 ./id_rsa_ansible_new
           #ssh-keyscan -H 100.114.136.8 >> ~/.ssh/known_hosts
 
       - name: Test SSH Connection
-        run: ssh -i ~/.ssh/id_rsa_ansible_new sergey@100.114.136.8 "echo 'SSH Connection Successful'"
+        run: ssh -i ./id_rsa_ansible_new sergey@100.114.136.8 "echo 'SSH Connection Successful'"
 
       - name: Set up Ansible
         run: |
@@ -36,4 +36,4 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
         run: |
-          ansible-playbook -i inventory.ini ansible-playbook.yml --private-key ~/.ssh/id_rsa_ansible
+          ansible-playbook -i inventory.ini ansible-playbook.yml --private-key ./id_rsa_ansible
