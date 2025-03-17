@@ -17,6 +17,13 @@ jobs:
           curl -fsSL https://tailscale.com/install.sh | sh
           sudo tailscale up --authkey=${{ secrets.TAILSCALE_AUTHKEY }}
 
+      - name: Set up SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_ansible
+          chmod 600 ~/.ssh/id_rsa_ansible
+          ssh-keyscan 100.114.136.8 >> ~/.ssh/known_hosts
+
       - name: Set up Ansible
         run: |
           sudo apt update
@@ -26,6 +33,4 @@ jobs:
         env:
           ANSIBLE_HOST_KEY_CHECKING: "False"
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-          ansible-playbook -i ./inventory.ini ansible-playbook.yml --private-key private_key.pem
+          ansible-playbook -i inventory.ini ansible-playbook.yml --private-key ~/.ssh/id_rsa_ansible
