@@ -19,9 +19,9 @@ jobs:
 
       - name: Set up SSH
         run: |
-          mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_ansible_new
-          chmod 600 ~/.ssh/id_rsa
+          #mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ./id_rsa_ansible_new
+          chmod 600 ./id_rsa_ansible_new
           ssh-keyscan -H 100.114.136.8 >> ~/.ssh/known_hosts
 
       - name: Test SSH Connection
