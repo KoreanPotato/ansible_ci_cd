@@ -17,13 +17,13 @@ jobs:
           curl -fsSL https://tailscale.com/install.sh | sh
           sudo tailscale up --authkey=${{ secrets.TAILSCALE_AUTHKEY }}
 
-      - name: Setup SSH Key
+      - name: Set up SSH
         run: |
           mkdir -p ~/.ssh/
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa_ansible_new
-          chmod 600 ~/.ssh/id_rsa_ansible_new
-          eval $(ssh-agent -s)
-          ssh-add ~/.ssh/id_rsa_ansible_new
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 100.114.136.8 >> ~/.ssh/known_hosts
+
 
       - name: Set up Ansible
         run: |
