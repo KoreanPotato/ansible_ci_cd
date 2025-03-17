@@ -27,7 +27,6 @@ jobs:
       - name: Test SSH Connection
         run: ssh -i ~/.ssh/id_rsa_ansible_new sergey@100.114.136.8 "echo 'SSH Connection Successful'"
 
-
       - name: Set up Ansible
         run: |
           sudo apt update
