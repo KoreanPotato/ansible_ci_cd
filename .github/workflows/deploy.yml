@@ -29,7 +29,11 @@ jobs:
 
       - name: Copy project files to the server
         run: |
-          sudo scp -i ./id_rsa_ansible_new -o StrictHostKeyChecking=no -r ./assignment_3 sergey@100.114.136.8:/home/sergey/
+          sudo rsync -avz -e "ssh -i ./id_rsa_ansible_new -o StrictHostKeyChecking=no" \
+            --exclude='.git' --exclude='node_modules' --exclude='venv' \
+            ./assignment_3 sergey@100.114.136.8:/home/sergey/
+
+
 
       - name: Set up Ansible
         run: |
