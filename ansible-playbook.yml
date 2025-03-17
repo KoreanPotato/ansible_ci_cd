@@ -11,7 +11,7 @@
     - name: Build Docker image 
       command: docker build -t docker_image .
       args:
-        chdir: assignment_3/ 
+        chdir: assignment_3
 
     - name: Check if container is running  
       shell: docker ps --format "{{.Names}}" | grep -w myapp
