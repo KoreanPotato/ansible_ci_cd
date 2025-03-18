@@ -8,8 +8,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest 
     env:
-    SSH_USER: ${{secrets.SSH_USER}}
-    SSH_IP: ${{secrets.SSH_IP}}
+      SSH_USER: ${{secrets.SSH_USER}}
+      SSH_IP: ${{secrets.SSH_IP}}
 
     steps:
       - name: Checkout repository 
