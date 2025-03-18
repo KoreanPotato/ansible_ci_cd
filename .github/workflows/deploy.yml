@@ -33,6 +33,12 @@ jobs:
             --exclude='.git' --exclude='node_modules' --exclude='venv' \
             ./assignment_3 sergey@100.114.136.8:/home/sergey/
 
+      - name: Generate inventory.ini
+        run: |
+          echo "[servers]" > inventory.ini
+          echo "vm ansible_host=$SSH_IP ansible_user=SSH_USER ansible_ssh_private_key_file=./id_rsa_ansible_new" >> inventory.ini
+
+
       - name: Set up Ansible
         run: |
           sudo apt update
